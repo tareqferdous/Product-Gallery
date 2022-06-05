@@ -4,6 +4,10 @@ const initialState = {
   loading: false,
   products: [],
   error: null,
+  skues: [],
+  color: null,
+  size: null,
+  activeBtn: false,
 };
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
@@ -15,7 +19,16 @@ export const getProducts = createAsyncThunk("product/getProducts", async () => {
 export const productSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    addColor: (state, { payload }) => {
+      state.skues[0] = payload.id;
+      state.color = payload.name;
+    },
+    addSize: (state, { payload }) => {
+      state.skues[1] = payload.id;
+      state.size = payload.name;
+    },
+  },
   extraReducers: {
     [getProducts.pending]: (state, action) => {
       state.loading = true;
@@ -31,4 +44,5 @@ export const productSlice = createSlice({
   },
 });
 
+export const { addColor, addSize, displayColorName } = productSlice.actions;
 export default productSlice.reducer;

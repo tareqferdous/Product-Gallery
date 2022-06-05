@@ -1,19 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../../store/ProductSlice";
+import { addColor, addSize, getProducts } from "../../store/ProductSlice";
 import "./Product.css";
 
 const Product = () => {
-  const [productColor, setProductColor] = useState("");
-  const [productSize, setProductSize] = useState("");
-
   const dispatch = useDispatch();
 
-  const { products } = useSelector((state) => state.product) || [];
+  const { products, skues, color, size, activeBtn } =
+    useSelector((state) => state.product) || [];
 
   useEffect(() => {
     dispatch(getProducts());
   }, []);
+
+  const handleSkues = (product) => {
+    return dispatch(addColor(product));
+  };
+
+  const handleAddSize = (size) => {
+    return dispatch(addSize(size));
+  };
+
+  const matchedProduct = products?.variation?.skus?.find(
+    (item) => item.props.toString() === skues.toString()
+  );
 
   return (
     <div className="product-container">
@@ -32,30 +42,34 @@ const Product = () => {
             <h3>{products.title}</h3>
           </div>
           <div className="price">
-            <h3>
-              Price: {"Rs. " + products?.price?.discounted}{" "}
-              <del
-                style={{
-                  textDecoration: "line-through",
-                  color: "black",
-                  fontSize: "16px",
-                }}
-              >
-                {"Rs. " + products?.price?.old}
-              </del>
-              <span style={{ color: "#e63946", marginLeft: "10px" }}>
-                (50% Off)
-              </span>
-            </h3>
+            {color && size ? (
+              <h3>
+                Price: {"Rs. " + matchedProduct?.price?.discounted}{" "}
+                <del
+                  style={{
+                    textDecoration: "line-through",
+                    color: "black",
+                    fontSize: "16px",
+                  }}
+                >
+                  {"Rs. " + matchedProduct?.price?.old}
+                </del>
+                <span style={{ color: "#e63946", marginLeft: "10px" }}>
+                  (50% Off)
+                </span>
+              </h3>
+            ) : (
+              <h3>Price: {"Rs. " + 0} </h3>
+            )}
           </div>
 
           <div className="product-color">
-            <h3>Color: {productColor}</h3>
+            <h3>Color: {color}</h3>
 
             {products.variation?.props[0]?.values?.map((color, index) => {
               return (
                 <img
-                  onClick={() => setProductColor(color.name)}
+                  onClick={() => handleSkues(color)}
                   key={index}
                   className="product-img"
                   src={color.image}
@@ -66,11 +80,11 @@ const Product = () => {
           </div>
 
           <div className="product-size">
-            <h3>Size: {productSize}</h3>
+            <h3>Size: {size}</h3>
             <div className="size-wrapper">
               {products.variation?.props[1]?.values?.map((size, index) => {
                 return (
-                  <p onClick={() => setProductSize(size.name)} key={index}>
+                  <p onClick={() => handleAddSize(size)} key={index}>
                     {size.name}
                   </p>
                 );
