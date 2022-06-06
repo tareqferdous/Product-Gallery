@@ -6,10 +6,16 @@ import "./Product.css";
 const Product = () => {
   const dispatch = useDispatch();
 
-  const { products, skues, color, size, image, active } =
-    useSelector((state) => state.product) || [];
-
-  console.log(active);
+  const {
+    products,
+    skues,
+    color,
+    size,
+    image,
+    active,
+    selectedSizeId,
+    selectedColorId,
+  } = useSelector((state) => state.product) || [];
 
   useEffect(() => {
     dispatch(getProducts());
@@ -82,7 +88,11 @@ const Product = () => {
                 <img
                   onClick={() => handleAddColor(color)}
                   key={index}
-                  className={active ? "product-img2" : "product-img"}
+                  className={
+                    selectedColorId === color.id
+                      ? "product-img2"
+                      : "product-img"
+                  }
                   src={color.image}
                   alt=""
                 />
@@ -94,8 +104,15 @@ const Product = () => {
             <h3>Size: {size}</h3>
             <div className="size-wrapper">
               {products.variation?.props[1]?.values?.map((size, index) => {
+                console.log(size.id);
                 return (
-                  <p onClick={() => handleAddSize(size)} key={index}>
+                  <p
+                    className={
+                      size.id === selectedSizeId ? "shoe-size2" : "shoe-size"
+                    }
+                    onClick={() => handleAddSize(size)}
+                    key={index}
+                  >
                     {size.name}
                   </p>
                 );

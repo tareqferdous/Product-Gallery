@@ -131,7 +131,7 @@
   color: gray;
 }
 
-.product-size p {
+.shoe-size {
   width: 100%;
   max-width: 90px;
   height: 60px;
@@ -146,9 +146,17 @@
   padding-top: 21px;
 }
 
-.product-size p:hover,
-.product-size p.selected {
-  background: black;
-  color: white;
+.shoe-size2 {
+  width: 100%;
+  max-width: 90px;
+  height: 60px;
+  border: 2px solid rgb(245, 109, 109);
+  border-radius: 8px;
+  margin-right: 12px;
   cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: gray;
+  padding-top: 21px;
 }

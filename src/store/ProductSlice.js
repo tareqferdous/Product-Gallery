@@ -8,7 +8,8 @@ const initialState = {
   color: null,
   size: null,
   image: [],
-  active: false,
+  selectedSizeId: null,
+  selectedColorId: null,
 };
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
@@ -25,14 +26,13 @@ export const productSlice = createSlice({
       state.skues[0] = payload.id;
       state.color = payload.name;
       state.image = payload;
-
-      state.products?.variation?.props[0]?.values?.map((color) =>
-        color.id === payload.id ? (state.active = true) : (state.active = false)
-      );
+      state.selectedColorId = payload.id;
     },
     addSize: (state, { payload }) => {
       state.skues[1] = payload.id;
+      console.log(payload.id);
       state.size = payload.name;
+      state.selectedSizeId = payload.id;
     },
   },
   extraReducers: {
@@ -50,5 +50,5 @@ export const productSlice = createSlice({
   },
 });
 
-export const { addColor, addSize, displayColorName } = productSlice.actions;
+export const { addColor, addSize } = productSlice.actions;
 export default productSlice.reducer;
