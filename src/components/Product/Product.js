@@ -12,7 +12,6 @@ const Product = () => {
     color,
     size,
     image,
-    active,
     selectedSizeId,
     selectedColorId,
   } = useSelector((state) => state.product) || [];

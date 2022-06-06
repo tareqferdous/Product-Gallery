@@ -160,3 +160,27 @@
   color: gray;
   padding-top: 21px;
 }
+
+/* Media Query  */
+@media only screen and (max-width: 600px) {
+  .product-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .photo-gallery2 {
+    margin: 40px auto;
+  }
+  .photo-gallery {
+    width: 90%;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+  .pic2 {
+    position: relative;
+    height: 270px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px lightgrey;
+  }
+}
