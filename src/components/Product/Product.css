@@ -15,7 +15,15 @@
   width: 90%;
   margin: 110px auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.photo-gallery2 {
+  width: 90%;
+  margin: 110px auto;
+  display: grid;
+  grid-template-columns: 1fr;
   grid-gap: 20px;
 }
 
@@ -26,7 +34,20 @@
   box-shadow: 3px 3px 3px lightgrey;
 }
 
+.pic2 {
+  position: relative;
+  height: 450px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px lightgrey;
+}
+
 .pic img {
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+}
+
+.pic2 img {
   width: 100%;
   height: 100%;
   border-radius: 3px;

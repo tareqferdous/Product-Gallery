@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addColor, addSize, getProducts } from "../../store/ProductSlice";
 import "./Product.css";
@@ -6,8 +6,10 @@ import "./Product.css";
 const Product = () => {
   const dispatch = useDispatch();
 
-  const { products, skues, color, size, image } =
+  const { products, skues, color, size, image, active } =
     useSelector((state) => state.product) || [];
+
+  console.log(active);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -27,23 +29,24 @@ const Product = () => {
 
   return (
     <div className="product-container">
-      <div className="photo-gallery">
-        {products?.gallery?.map((pic, index) => {
-          return (
-            <>
-              {color ? (
-                <div key={index} className="pic">
-                  <img src={image.image} alt="" />
-                </div>
-              ) : (
-                <div key={index} className="pic">
-                  <img src={pic.url} alt="" />
-                </div>
-              )}
-            </>
-          );
-        })}
-      </div>
+      {color ? (
+        <div className="photo-gallery2">
+          <div className="pic2">
+            <img src={image.image} alt="" />
+          </div>
+        </div>
+      ) : (
+        <div className="photo-gallery">
+          {products?.gallery?.map((pic, index) => {
+            return (
+              <div key={index} className="pic">
+                <img src={pic.url} alt="" />
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       <div>
         <div className="product-details">
           <div className="title">
@@ -79,7 +82,7 @@ const Product = () => {
                 <img
                   onClick={() => handleAddColor(color)}
                   key={index}
-                  className="product-img"
+                  className={active ? "product-img2" : "product-img"}
                   src={color.image}
                   alt=""
                 />
