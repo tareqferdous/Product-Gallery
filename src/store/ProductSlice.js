@@ -7,7 +7,7 @@ const initialState = {
   skues: [],
   color: null,
   size: null,
-  activeBtn: false,
+  image: [],
 };
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {
@@ -23,6 +23,7 @@ export const productSlice = createSlice({
     addColor: (state, { payload }) => {
       state.skues[0] = payload.id;
       state.color = payload.name;
+      state.image = payload;
     },
     addSize: (state, { payload }) => {
       state.skues[1] = payload.id;

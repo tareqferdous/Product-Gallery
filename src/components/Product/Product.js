@@ -6,14 +6,14 @@ import "./Product.css";
 const Product = () => {
   const dispatch = useDispatch();
 
-  const { products, skues, color, size, activeBtn } =
+  const { products, skues, color, size, image } =
     useSelector((state) => state.product) || [];
 
   useEffect(() => {
     dispatch(getProducts());
   }, []);
 
-  const handleSkues = (product) => {
+  const handleAddColor = (product) => {
     return dispatch(addColor(product));
   };
 
@@ -30,9 +30,17 @@ const Product = () => {
       <div className="photo-gallery">
         {products?.gallery?.map((pic, index) => {
           return (
-            <div key={index} className="pic">
-              <img src={pic.url} alt="" />
-            </div>
+            <>
+              {color ? (
+                <div key={index} className="pic">
+                  <img src={image.image} alt="" />
+                </div>
+              ) : (
+                <div key={index} className="pic">
+                  <img src={pic.url} alt="" />
+                </div>
+              )}
+            </>
           );
         })}
       </div>
@@ -69,7 +77,7 @@ const Product = () => {
             {products.variation?.props[0]?.values?.map((color, index) => {
               return (
                 <img
-                  onClick={() => handleSkues(color)}
+                  onClick={() => handleAddColor(color)}
                   key={index}
                   className="product-img"
                   src={color.image}
